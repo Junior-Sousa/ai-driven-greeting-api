@@ -1,0 +1,35 @@
+# Reference compose stack: isolated bridge network + cgroup limits for DoS containment.
+# Adjust mem_limit/cpus for your host (see docs/design/security.md).
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_THREADS_VIRTUAL_ENABLED: "true"
+      SERVER_SHUTDOWN: graceful
+    networks:
+      - app-network
+    # Applied by Docker Compose on Linux engines (Colima, Docker Desktop Linux VM).
+    mem_limit: 512m
+    cpus: "1.0"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "-fsS",
+          "http://127.0.0.1:8080/actuator/health/liveness",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 45s
+
+networks:
+  app-network:
+    name: ai-driven-greeting-net
+    driver: bridge

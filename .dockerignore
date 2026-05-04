@@ -1,0 +1,25 @@
+# Build output
+target/
+
+# VCS
+.git/
+.gitattributes
+
+# Documentation (not needed for image)
+docs/
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Local env (never bake secrets)
+.env
+.env.*
+
+# Cursor / tooling
+.cursor/
+
+# Maven local repo cache if mounted accidentally
+.m2/

@@ -1,0 +1,8 @@
+# AI-Driven Greeting API — Cursor rules
+
+- Single source of truth for design: **`docs/README.md`** (English). Read before large changes.
+- Stack: Java 25, Spring Boot 3.4.x, Maven. Do not downgrade Java without an ADR.
+- DTOs: **Java records**. Wiring: **constructor injection only** (no `@Autowired` on fields).
+- HTTP API: version prefix **`/v1/`**. Errors: **RFC 7807** via `@RestControllerAdvice`.
+- Tests: follow **`docs/design/engineering.md`** (unit tests for `GreetingService`, integration for controller).
+- Update OpenAPI / FDD / diagrams when you change public API or architecture boundaries.
